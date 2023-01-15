@@ -586,6 +586,8 @@ class Github:
         query,
         sort=github.GithubObject.NotSet,
         order=github.GithubObject.NotSet,
+        per_page=30,
+        page=1,
         **qualifiers,
     ):
         """
@@ -593,6 +595,8 @@ class Github:
         :param query: string
         :param sort: string ('author-date', 'committer-date')
         :param order: string ('asc', 'desc')
+        :param per_page: interger
+        :param page: integer
         :param qualifiers: keyword dict query qualifiers
         :rtype: :class:`github.PaginatedList.PaginatedList` of :class:`github.Commit.Commit`
         """
@@ -604,6 +608,8 @@ class Github:
         if order is not github.GithubObject.NotSet:
             assert order in ("asc", "desc"), order
             url_parameters["order"] = order
+        url_parameters["per_page"] = per_page
+        url_parameters["page"] = page
 
         query_chunks = []
         if query:
